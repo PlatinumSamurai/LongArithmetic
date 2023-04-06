@@ -4,11 +4,11 @@
 
 
 int main() {
-    BigNumber num1("1000");
-    BigNumber num2("1");
-    BigNumber num3 = num1 - num2;
+    BigNumber num1("16");
+    BigNumber num2("11");
+//    BigNumber num3 = num1 + num2;
 
-    std::cout << num3 << std::endl;
+    std::cout << (num1 < num2) << std::endl;
 
     return 0;
 }
