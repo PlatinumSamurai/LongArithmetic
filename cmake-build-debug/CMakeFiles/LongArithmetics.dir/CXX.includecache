@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-D:/Clion/ClionProjects/LongArithmetic/BigNumber.cpp
-BigNumber.h
-D:/Clion/ClionProjects/LongArithmetic/BigNumber.h
-
 D:/Clion/ClionProjects/LongArithmetic/BigNumber.h
 vector
 -
@@ -27,4 +23,6 @@ iostream
 -
 BigNumber.h
 D:/Clion/ClionProjects/LongArithmetic/BigNumber.h
+cassert
+-
 

@@ -14,6 +14,7 @@ protected:
 
 public:
     explicit BigNumber(const std::string &str = "0");
+    friend BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs);
     friend std::ostream &operator<<(std::ostream &out, const BigNumber &number);
 
 };

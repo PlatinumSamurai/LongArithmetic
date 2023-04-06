@@ -1,15 +1,14 @@
 #include <iostream>
 #include "BigNumber.h"
+#include <cassert>
 
 
 int main() {
-    BigNumber number;
+    BigNumber num1("999");
+    BigNumber num2("1");
+    BigNumber num3 = num1 + num1;
 
-    std::cout << number << std::endl;
+    std::cout << num3 << std::endl;
 
     return 0;
 }
-// 4611686018427387903
-// 9223372036854775807
-// 18446744073709551615
-// 9223372036854775776
