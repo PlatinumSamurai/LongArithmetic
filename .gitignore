@@ -1,0 +1,3 @@
+# ignore .idea and cmake-build-debug
+/.idea
+/cmake-build-debug
