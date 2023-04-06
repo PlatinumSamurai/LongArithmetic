@@ -4,9 +4,9 @@
 
 
 int main() {
-    BigNumber num1("999");
+    BigNumber num1("1000");
     BigNumber num2("1");
-    BigNumber num3 = num1 + num1;
+    BigNumber num3 = num1 - num2;
 
     std::cout << num3 << std::endl;
 
