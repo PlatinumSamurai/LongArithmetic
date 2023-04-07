@@ -16,10 +16,15 @@ public:
     explicit BigNumber(const std::string &str = "0");
     friend BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs);
     friend BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs);
+    friend BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs);
     friend bool operator>(const BigNumber &lhs, const BigNumber &rhs);
     friend bool operator<(const BigNumber &lhs, const BigNumber &rhs);
     friend bool operator==(const BigNumber &lhs, const BigNumber &rhs);
+    friend bool operator>=(const BigNumber &lhs, const BigNumber &rhs);
+    friend bool operator<=(const BigNumber &lhs, const BigNumber &rhs);
     friend std::ostream &operator<<(std::ostream &out, const BigNumber &number);
+
+    [[nodiscard]] BigNumber abs() const;
 
 };
 
