@@ -4,8 +4,8 @@
 
 
 int main() {
-    BigNumber num1("5");
-    BigNumber num2("6");
+    BigNumber num1("-1");
+    BigNumber num2("5");
     BigNumber num3 = num1 - num2;
 
     std::cout << num3 << std::endl;
@@ -92,6 +92,30 @@ int main() {
     assert(BigNumber("-99") <= BigNumber("-97") == 1);
     assert(BigNumber("1") <= BigNumber("1") == 1);
     assert(BigNumber("-1") <= BigNumber("-1") == 1);
+
+
+    // Operator - tests
+    assert(BigNumber("6") - BigNumber("5") == BigNumber("1"));
+    assert(BigNumber("6") - BigNumber("6") == BigNumber("0"));
+    assert(BigNumber("16") - BigNumber("6") == BigNumber("10"));
+    assert(BigNumber("5") - BigNumber("6") == BigNumber("-1"));
+    assert(BigNumber("-1") - BigNumber("1") == BigNumber("-2"));
+    assert(BigNumber("-9") - BigNumber("1") == BigNumber("-10"));
+    assert(BigNumber("-99") - BigNumber("5") == BigNumber("-104"));
+    assert(BigNumber("-1") - BigNumber("-1") == BigNumber("0"));
+    assert(BigNumber("-15") - BigNumber("-6") == BigNumber("-9"));
+
+
+    // Operator * tests
+    assert(BigNumber("2") * BigNumber("2") == BigNumber("4"));
+    assert(BigNumber("2") * BigNumber("3") == BigNumber("6"));
+    assert(BigNumber("2") * BigNumber("6") == BigNumber("12"));
+    assert(BigNumber("24") * BigNumber("6") == BigNumber("144"));
+    assert(BigNumber("-1") * BigNumber("6") == BigNumber("-6"));
+    assert(BigNumber("-1") * BigNumber("16") == BigNumber("-16"));
+    assert(BigNumber("-2") * BigNumber("16") == BigNumber("-32"));
+    assert(BigNumber("-15") * BigNumber("15") == BigNumber("-225"));
+    assert(BigNumber("-15") * BigNumber("-15") == BigNumber("225"));
 
 
 

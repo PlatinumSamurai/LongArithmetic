@@ -25,6 +25,7 @@ public:
     friend std::ostream &operator<<(std::ostream &out, const BigNumber &number);
 
     [[nodiscard]] BigNumber abs() const;
+    int reduction();
 
 };
 
