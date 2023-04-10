@@ -4,11 +4,11 @@
 
 
 int main() {
-    BigNumber num1("-1");
-    BigNumber num2("5");
-    BigNumber num3 = num1 - num2;
-
-    std::cout << num3 << std::endl;
+//    BigNumber num1("-15");
+//    BigNumber num2("-6");
+//    BigNumber num3 = num1 - num2;
+//
+//    std::cout << num3 << std::endl;
 
     // Abs function tests
     assert(BigNumber("1").abs() == BigNumber("1"));
@@ -103,7 +103,9 @@ int main() {
     assert(BigNumber("-9") - BigNumber("1") == BigNumber("-10"));
     assert(BigNumber("-99") - BigNumber("5") == BigNumber("-104"));
     assert(BigNumber("-1") - BigNumber("-1") == BigNumber("0"));
+    assert(BigNumber("5") - BigNumber("20") == BigNumber("-15"));
     assert(BigNumber("-15") - BigNumber("-6") == BigNumber("-9"));
+    assert(BigNumber("100") - BigNumber("95") == BigNumber("5"));
 
 
     // Operator * tests

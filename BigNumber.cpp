@@ -1,6 +1,5 @@
 #include "BigNumber.h"
 
-// TODO reduction of insignificant zeros is needed
 
 BigNumber::BigNumber(const std::string &str) {
     bool sign = false;
@@ -116,6 +115,7 @@ BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
         sign = true;
     }
 
+
     for(int i = 0; i < subtrahend.number.size(); ++i) {
         result.number.at(i) -= subtrahend.number.at(i);
     }
@@ -128,6 +128,10 @@ BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
             }
         }
     }
+
+//    std::cout << "lhs: " << lhs << ", rhs: " << rhs << ". Result without * -1: " << result << std::endl;
+
+    result.reduction();
 
     if(sign != permutation) {
         result = result * BigNumber("-1");
@@ -280,7 +284,14 @@ BigNumber BigNumber::abs() const {
 
 
 int BigNumber::reduction() {
-    bool sign;
+    auto it = this->number.rbegin();
 
-    return -1;
+    if(this->number.size() > 1) {
+        while(*it == 0) {
+            this->number.pop_back();
+            it = this->number.rbegin();
+        }
+    }
+
+    return 0;
 }

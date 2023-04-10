@@ -9,8 +9,10 @@
 
 
 class BigNumber {
-protected:
+private:
     std::vector<int8_t> number;
+
+    int reduction();
 
 public:
     explicit BigNumber(const std::string &str = "0");
@@ -25,7 +27,6 @@ public:
     friend std::ostream &operator<<(std::ostream &out, const BigNumber &number);
 
     [[nodiscard]] BigNumber abs() const;
-    int reduction();
 
 };
 
