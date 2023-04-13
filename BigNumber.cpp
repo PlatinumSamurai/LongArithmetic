@@ -251,8 +251,71 @@ BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-bool operator>(const BigNumber &lhs, const BigNumber &rhs) {
+BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
+    BigNumber dividend = lhs;
+    BigNumber divisor = rhs;
+    BigNumber temp;
+    BigNumber reminder;
+    unsigned long long int step = 0;
+    bool sign = false;
 
+    if(divisor == BigNumber("0")) {
+        throw std::domain_error("Division by zero");
+    }
+
+    if(lhs >= BigNumber("0") and rhs < BigNumber("0")) {
+        divisor = divisor.abs();
+    } else if(lhs < BigNumber("0") and rhs >= BigNumber("0")) {
+        dividend = dividend.abs();
+        sign = true;
+    }  else if(lhs < BigNumber("0") and rhs < BigNumber("0")) {
+        dividend = dividend.abs();
+        divisor = divisor.abs();
+        sign = true;
+    }
+
+    while(dividend > divisor) {
+        if(reminder == BigNumber("0")) {
+            step = 1;
+        } else {
+            step = reminder.number.size() + 1;
+        }
+        for(auto i = step; i <= dividend.number.size(); ++i) {
+            temp.number.clear();
+            std::copy(dividend.number.end() - i, dividend.number.end(), std::back_inserter(temp.number));
+            if(temp >= divisor) {
+                break;
+            }
+        }
+        for(int i = 1; i <= 9; ++i) {
+            BigNumber tempTemp = divisor * BigNumber(std::to_string(i));
+            if(tempTemp > temp) {
+                // TODO any possible optimization?
+                for(long long int j = 0; j < temp.number.size(); ++j) {
+                    dividend.number.pop_back();
+                }
+                reminder = temp - divisor * BigNumber(std::to_string(i - 1));
+                if(reminder > BigNumber("0")) {
+                    for(const auto &item : reminder.number) {
+                        dividend.number.push_back(item);
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    dividend.number.push_back(0);
+    dividend.reduction();
+    if(sign) {
+        dividend = dividend * BigNumber("-1");
+    }
+
+    return dividend;
+}
+
+
+bool operator>(const BigNumber &lhs, const BigNumber &rhs) {
     if(*lhs.number.rbegin() >= 0 and *rhs.number.rbegin() < 0) {
         return true;
     } else if(*lhs.number.rbegin() < 0 and *rhs.number.rbegin() >= 0) {

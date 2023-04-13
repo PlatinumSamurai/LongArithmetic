@@ -4,11 +4,11 @@
 
 
 int main() {
-//    BigNumber num1("1");
-//    BigNumber num2("-24");
-//    BigNumber num3 = num1 - num2;
-//
-//    std::cout << num3 << std::endl;
+    BigNumber num1("4");
+    BigNumber num2("1");
+    BigNumber num3 = num1 % num2;
+
+    std::cout << num3 << std::endl;
 
     // Abs function tests
     assert(BigNumber("1").abs() == BigNumber("1"));
@@ -144,6 +144,27 @@ int main() {
     assert(BigNumber("-98356742983549357206") / BigNumber("46734137658") == BigNumber("-2104601644"));
     assert(BigNumber("98356742983549357206") / BigNumber("-46734137658") == BigNumber("-2104601644"));
     assert(BigNumber("-98356742983549357206") / BigNumber("-46734137658") == BigNumber("2104601644"));
+
+    // Operator % tests
+    assert(BigNumber("4") % BigNumber("1") == BigNumber("0"));
+    assert(BigNumber("0") % BigNumber("1") == BigNumber("0"));
+    assert(BigNumber("0") % BigNumber("-1") == BigNumber("0"));
+    assert(BigNumber("4") % BigNumber("2") == BigNumber("0"));
+    assert(BigNumber("6") % BigNumber("2") == BigNumber("0"));
+    assert(BigNumber("25") % BigNumber("5") == BigNumber("0"));
+    assert(BigNumber("100") % BigNumber("5") == BigNumber("0"));
+    assert(BigNumber("100") % BigNumber("20") == BigNumber("0"));
+    assert(BigNumber("100") % BigNumber("4") == BigNumber("0"));
+    assert(BigNumber("10000") % BigNumber("100") == BigNumber("0"));
+    assert(BigNumber("25") % BigNumber("4") == BigNumber("1"));
+    assert(BigNumber("10020") % BigNumber("100") == BigNumber("20"));
+    assert(BigNumber("10101") % BigNumber("100") == BigNumber("1"));
+    assert(BigNumber("12345") % BigNumber("678") == BigNumber("141"));
+    assert(BigNumber("34566574545") % BigNumber("2645") == BigNumber("585"));
+    assert(BigNumber("98356742983549357206") % BigNumber("46734137658") == BigNumber("37600247454"));
+    assert(BigNumber("-98356742983549357206") % BigNumber("46734137658") == BigNumber("-37600247454"));
+    assert(BigNumber("98356742983549357206") % BigNumber("-46734137658") == BigNumber("37600247454"));
+    assert(BigNumber("-98356742983549357206") % BigNumber("-46734137658") == BigNumber("-37600247454"));
 
 
     std::cerr << "All tests are passed!" << std::endl;
