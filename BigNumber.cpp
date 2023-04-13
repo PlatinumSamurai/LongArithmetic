@@ -18,15 +18,6 @@ BigNumber::BigNumber(const std::string &str) {
 }
 
 
-std::ostream &operator<<(std::ostream &out, const BigNumber &number) {
-    for(auto it = number.number.rbegin(); it != number.number.rend(); ++it) {
-        out << short(*it);
-    }
-
-    return out;
-}
-
-
 BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs) {
     BigNumber result;
     BigNumber term;
@@ -287,28 +278,7 @@ bool operator>(const BigNumber &lhs, const BigNumber &rhs) {
 
 
 bool operator<(const BigNumber &lhs, const BigNumber &rhs) {
-
-    if(*lhs.number.rbegin() < 0 and *rhs.number.rbegin() >= 0) {
-        return true;
-    } else if(*lhs.number.rbegin() >= 0 and *rhs.number.rbegin() < 0) {
-        return false;
-    } else if(*lhs.number.rbegin() < 0 and *rhs.number.rbegin() < 0) {
-        return (lhs.abs() > rhs.abs());
-    }
-    if(lhs.number.size() <  rhs.number.size()) {
-        return true;
-    } else if(lhs.number.size() ==  rhs.number.size()) {
-        for(auto it1 = lhs.number.rbegin(), it2 = rhs.number.rbegin();
-            it1 != lhs.number.rend(); ++it1, ++it2) {
-            if(*it1 < *it2) {
-                return true;
-            } else if(*it1 > *it2) {
-                return false;
-            }
-        }
-    }
-
-    return false;
+    return !(lhs > rhs) and (lhs != rhs);
 }
 
 
@@ -334,6 +304,20 @@ bool operator>=(const BigNumber &lhs, const BigNumber &rhs) {
 
 bool operator<=(const BigNumber &lhs, const BigNumber &rhs) {
     return (lhs < rhs) or (lhs == rhs);
+}
+
+
+bool operator!=(const BigNumber &lhs, const BigNumber &rhs) {
+    return !(lhs == rhs);
+}
+
+
+std::ostream &operator<<(std::ostream &out, const BigNumber &number) {
+    for(auto it = number.number.rbegin(); it != number.number.rend(); ++it) {
+        out << short(*it);
+    }
+
+    return out;
 }
 
 
