@@ -187,7 +187,7 @@ BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
     BigNumber divisor = rhs;
     BigNumber result;
     BigNumber temp;
-    BigNumber reminder;
+    BigNumber remainder;
     unsigned long long int step = 0;
     bool sign = false;
 
@@ -207,10 +207,10 @@ BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
     }
 
     while(dividend > divisor) {
-        if(reminder == BigNumber("0")) {
+        if(remainder == BigNumber("0")) {
             step = 1;
         } else {
-            step = reminder.number.size() + 1;
+            step = remainder.number.size() + 1;
         }
         for(auto i = step; i <= dividend.number.size(); ++i) {
             temp.number.clear();
@@ -229,9 +229,9 @@ BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
                 for(long long int j = 0; j < temp.number.size(); ++j) {
                     dividend.number.pop_back();
                 }
-                reminder = temp - divisor * BigNumber(std::to_string(i - 1));
-                if(reminder > BigNumber("0")) {
-                    for(const auto &item : reminder.number) {
+                remainder = temp - divisor * BigNumber(std::to_string(i - 1));
+                if(remainder > BigNumber("0")) {
+                    for(const auto &item : remainder.number) {
                         dividend.number.push_back(item);
                     }
                 } else if(dividend < divisor) {
@@ -255,7 +255,7 @@ BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
     BigNumber dividend = lhs;
     BigNumber divisor = rhs;
     BigNumber temp;
-    BigNumber reminder;
+    BigNumber remainder;
     unsigned long long int step = 0;
     bool sign = false;
 
@@ -275,10 +275,10 @@ BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
     }
 
     while(dividend > divisor) {
-        if(reminder == BigNumber("0")) {
+        if(remainder == BigNumber("0")) {
             step = 1;
         } else {
-            step = reminder.number.size() + 1;
+            step = remainder.number.size() + 1;
         }
         for(auto i = step; i <= dividend.number.size(); ++i) {
             temp.number.clear();
@@ -294,9 +294,9 @@ BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
                 for(long long int j = 0; j < temp.number.size(); ++j) {
                     dividend.number.pop_back();
                 }
-                reminder = temp - divisor * BigNumber(std::to_string(i - 1));
-                if(reminder > BigNumber("0")) {
-                    for(const auto &item : reminder.number) {
+                remainder = temp - divisor * BigNumber(std::to_string(i - 1));
+                if(remainder > BigNumber("0")) {
+                    for(const auto &item : remainder.number) {
                         dividend.number.push_back(item);
                     }
                 }
