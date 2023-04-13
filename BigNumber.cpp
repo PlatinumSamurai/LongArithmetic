@@ -76,7 +76,7 @@ BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs) {
     return result;
 }
 
-// FIXME WORKS WRONGLY: 2 - (-5) = -7.....
+
 BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
     BigNumber result;
     BigNumber subtrahend;
@@ -95,26 +95,22 @@ BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
 
     if(result >= BigNumber("0") and subtrahend < BigNumber("0")) {
         result = result + subtrahend.abs();
-        sign = true;
-        if(permutation != sign) {
+        if(permutation) {
             return result * BigNumber("-1");
-        } else {
-            return result;
         }
+        return result;
     } else if(result < BigNumber("0") and subtrahend >= BigNumber("0")) {
         result = result.abs() + subtrahend.abs();
         sign = true;
         if(permutation != sign) {
             return result * BigNumber("-1");
-        } else {
-            return result;
         }
+        return result;
     }  else if(result < BigNumber("0") and subtrahend < BigNumber("0")) {
         result = result.abs();
         subtrahend = subtrahend.abs();
         sign = true;
     }
-
 
     for(int i = 0; i < subtrahend.number.size(); ++i) {
         result.number.at(i) -= subtrahend.number.at(i);
@@ -128,8 +124,6 @@ BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
             }
         }
     }
-
-//    std::cout << "lhs: " << lhs << ", rhs: " << rhs << ". Result without * -1: " << result << std::endl;
 
     result.reduction();
 

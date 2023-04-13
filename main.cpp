@@ -1,12 +1,12 @@
 #include <iostream>
-#include "BigNumber.h"
 #include <cassert>
+#include "BigNumber.h"
 
 
 int main() {
-//    BigNumber num1("234356465768");
-//    BigNumber num2("0");
-//    BigNumber num3 = num1 / num2;
+//    BigNumber num1("1");
+//    BigNumber num2("-24");
+//    BigNumber num3 = num1 - num2;
 //
 //    std::cout << num3 << std::endl;
 
@@ -106,6 +106,10 @@ int main() {
     assert(BigNumber("5") - BigNumber("20") == BigNumber("-15"));
     assert(BigNumber("-15") - BigNumber("-6") == BigNumber("-9"));
     assert(BigNumber("100") - BigNumber("95") == BigNumber("5"));
+    assert(BigNumber("100") - BigNumber("-95") == BigNumber("195"));
+    assert(BigNumber("1") - BigNumber("-1") == BigNumber("2"));
+    assert(BigNumber("0") - BigNumber("-1") == BigNumber("1"));
+    assert(BigNumber("1") - BigNumber("-24") == BigNumber("25"));
 
 
     // Operator * tests
@@ -140,7 +144,6 @@ int main() {
     assert(BigNumber("-98356742983549357206") / BigNumber("46734137658") == BigNumber("-2104601644"));
     assert(BigNumber("98356742983549357206") / BigNumber("-46734137658") == BigNumber("-2104601644"));
     assert(BigNumber("-98356742983549357206") / BigNumber("-46734137658") == BigNumber("2104601644"));
-
 
 
     std::cerr << "All tests are passed!" << std::endl;
