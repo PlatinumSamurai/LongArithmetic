@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-
+#include <algorithm>
 
 class BigNumber {
 private:
@@ -19,6 +19,7 @@ public:
     friend BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs);
     friend BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs);
     friend BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs);
+    friend BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs);
     friend bool operator>(const BigNumber &lhs, const BigNumber &rhs);
     friend bool operator<(const BigNumber &lhs, const BigNumber &rhs);
     friend bool operator==(const BigNumber &lhs, const BigNumber &rhs);

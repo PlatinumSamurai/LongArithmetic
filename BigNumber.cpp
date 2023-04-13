@@ -76,7 +76,7 @@ BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs) {
     return result;
 }
 
-
+// FIXME WORKS WRONGLY: 2 - (-5) = -7.....
 BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
     BigNumber result;
     BigNumber subtrahend;
@@ -188,9 +188,78 @@ BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs) {
         result = result + temp;
     }
 
-
+    result.reduction();
     if(sign) {
         *result.number.rbegin() *= -1;
+    }
+
+    return result;
+}
+
+
+BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
+    BigNumber dividend = lhs;
+    BigNumber divisor = rhs;
+    BigNumber result;
+    BigNumber temp;
+    BigNumber reminder;
+    unsigned long long int step = 0;
+    bool sign = false;
+
+    if(divisor == BigNumber("0")) {
+        throw std::domain_error("Division by zero");
+    }
+
+    if(lhs >= BigNumber("0") and rhs < BigNumber("0")) {
+        divisor = divisor.abs();
+        sign = true;
+    } else if(lhs < BigNumber("0") and rhs >= BigNumber("0")) {
+        dividend = dividend.abs();
+        sign = true;
+    }  else if(lhs < BigNumber("0") and rhs < BigNumber("0")) {
+        dividend = dividend.abs();
+        divisor = divisor.abs();
+    }
+
+    while(dividend > divisor) {
+        if(reminder == BigNumber("0")) {
+            step = 1;
+        } else {
+            step = reminder.number.size() + 1;
+        }
+        for(auto i = step; i <= dividend.number.size(); ++i) {
+            temp.number.clear();
+            std::copy(dividend.number.end() - i, dividend.number.end(), std::back_inserter(temp.number));
+            if(temp >= divisor) {
+                break;
+            } else {
+                result.number.insert(result.number.begin(), 0);
+            }
+        }
+        for(int i = 1; i <= 9; ++i) {
+            BigNumber tempTemp = divisor * BigNumber(std::to_string(i));
+            if(tempTemp > temp) {
+                result.number.insert(result.number.begin(), i - 1);
+                // TODO any possible optimization?
+                for(long long int j = 0; j < temp.number.size(); ++j) {
+                    dividend.number.pop_back();
+                }
+                reminder = temp - divisor * BigNumber(std::to_string(i - 1));
+                if(reminder > BigNumber("0")) {
+                    for(const auto &item : reminder.number) {
+                        dividend.number.push_back(item);
+                    }
+                } else if(dividend < divisor) {
+                    result.number.insert(result.number.begin(), dividend.number.size(), 0);
+                }
+                break;
+            }
+        }
+    }
+
+    result.reduction();
+    if(sign) {
+        result = result * BigNumber("-1");
     }
 
     return result;
@@ -273,6 +342,7 @@ bool operator<=(const BigNumber &lhs, const BigNumber &rhs) {
     return (lhs < rhs) or (lhs == rhs);
 }
 
+
 BigNumber BigNumber::abs() const {
     BigNumber result = *this;
     if(*result.number.rbegin() < 0) {
@@ -286,11 +356,9 @@ BigNumber BigNumber::abs() const {
 int BigNumber::reduction() {
     auto it = this->number.rbegin();
 
-    if(this->number.size() > 1) {
-        while(*it == 0) {
-            this->number.pop_back();
-            it = this->number.rbegin();
-        }
+    while(*it == 0 and this->number.size() > 1) {
+        this->number.pop_back();
+        it = this->number.rbegin();
     }
 
     return 0;

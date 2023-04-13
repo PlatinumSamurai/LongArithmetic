@@ -4,9 +4,9 @@
 
 
 int main() {
-//    BigNumber num1("-15");
-//    BigNumber num2("-6");
-//    BigNumber num3 = num1 - num2;
+//    BigNumber num1("234356465768");
+//    BigNumber num2("0");
+//    BigNumber num3 = num1 / num2;
 //
 //    std::cout << num3 << std::endl;
 
@@ -118,6 +118,28 @@ int main() {
     assert(BigNumber("-2") * BigNumber("16") == BigNumber("-32"));
     assert(BigNumber("-15") * BigNumber("15") == BigNumber("-225"));
     assert(BigNumber("-15") * BigNumber("-15") == BigNumber("225"));
+
+    // Operator / tests
+    assert(BigNumber("4") / BigNumber("1") == BigNumber("4"));
+    assert(BigNumber("0") / BigNumber("1") == BigNumber("0"));
+    assert(BigNumber("0") / BigNumber("-1") == BigNumber("0"));
+    assert(BigNumber("4") / BigNumber("2") == BigNumber("2"));
+    assert(BigNumber("6") / BigNumber("2") == BigNumber("3"));
+    assert(BigNumber("9") / BigNumber("3") == BigNumber("3"));
+    assert(BigNumber("25") / BigNumber("5") == BigNumber("5"));
+    assert(BigNumber("100") / BigNumber("5") == BigNumber("20"));
+    assert(BigNumber("100") / BigNumber("20") == BigNumber("5"));
+    assert(BigNumber("100") / BigNumber("4") == BigNumber("25"));
+    assert(BigNumber("10000") / BigNumber("100") == BigNumber("100"));
+    assert(BigNumber("25") / BigNumber("4") == BigNumber("6"));
+    assert(BigNumber("10020") / BigNumber("100") == BigNumber("100"));
+    assert(BigNumber("10101") / BigNumber("100") == BigNumber("101"));
+    assert(BigNumber("12345") / BigNumber("678") == BigNumber("18"));
+    assert(BigNumber("34566574545") / BigNumber("2645") == BigNumber("13068648"));
+    assert(BigNumber("98356742983549357206") / BigNumber("46734137658") == BigNumber("2104601644"));
+    assert(BigNumber("-98356742983549357206") / BigNumber("46734137658") == BigNumber("-2104601644"));
+    assert(BigNumber("98356742983549357206") / BigNumber("-46734137658") == BigNumber("-2104601644"));
+    assert(BigNumber("-98356742983549357206") / BigNumber("-46734137658") == BigNumber("2104601644"));
 
 
 
