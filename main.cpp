@@ -7,7 +7,7 @@ int main() {
     BigNumber num1("4");
     BigNumber num2("1");
     int i = 2;
-    BigNumber num3 = i + num1;
+    BigNumber num3 = i * num1;
 
     std::cout << num3 << std::endl;
 

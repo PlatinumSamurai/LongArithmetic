@@ -66,4 +66,151 @@ template <typename T> BigNumber operator+(const BigNumber &lhs, const T &rhs) {
 }
 
 
+template <typename T> BigNumber operator-(T lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result + rhs;
+}
+
+
+template <typename T> BigNumber operator-(const BigNumber &lhs, const T &rhs) {
+    return (rhs + lhs) * (-1);
+}
+
+
+template <typename T> BigNumber operator*(T lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result * rhs;
+}
+
+
+template <typename T> BigNumber operator*(const BigNumber &lhs, const T &rhs) {
+    return rhs * lhs;
+}
+
+
+template <typename T> BigNumber operator/(T lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result / rhs;
+}
+
+
+template <typename T> BigNumber operator/(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs / result;
+}
+
+
+template <typename T> BigNumber operator%(T lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result % rhs;
+}
+
+
+template <typename T> BigNumber operator%(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs % result;
+}
+
+template <typename T>
+bool operator>(const T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result > rhs;
+}
+
+
+template <typename T>
+bool operator>(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs > result;
+}
+
+
+template <typename T>
+bool operator<(const T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result < rhs;
+}
+
+
+template <typename T>
+bool operator<(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs < result;
+}
+
+
+template <typename T>
+bool operator==(const T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result == rhs;
+}
+
+
+template <typename T>
+bool operator==(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs == result;
+}
+
+
+template <typename T>
+bool operator>=(const T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result >= rhs;
+}
+
+
+template <typename T>
+bool operator>=(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs >= result;
+}
+
+
+template <typename T>
+bool operator<=(const T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result <= rhs;
+}
+
+
+template <typename T>
+bool operator<=(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs <= result;
+}
+
+
+template <typename T>
+bool operator!=(const T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result != rhs;
+}
+
+
+template <typename T>
+bool operator!=(const BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs != result;
+}
+
+
 #endif //LONGARITHMETICS_BIGNUMBER_H
