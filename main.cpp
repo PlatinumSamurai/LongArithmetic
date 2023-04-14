@@ -6,9 +6,12 @@
 int main() {
     BigNumber num1("4");
     BigNumber num2("1");
-    BigNumber num3 = num1 % num2;
+    int i = 2;
+    BigNumber num3 = i + num1;
 
     std::cout << num3 << std::endl;
+
+//    std::cout << typeid(char).name() << std::endl;
 
     // Abs function tests
     assert(BigNumber("1").abs() == BigNumber("1"));

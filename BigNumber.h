@@ -8,6 +8,7 @@
 #include <cctype>
 #include <algorithm>
 
+
 class BigNumber {
 private:
     std::vector<int8_t> number;
@@ -32,6 +33,37 @@ public:
     [[nodiscard]] BigNumber abs() const;
 
 };
+
+
+template <typename T> BigNumber to_BigNumber(const T &num) {
+    std::vector<std::string> types = {"e", "f", "d", typeid(BigNumber).name()};
+
+    for(const auto &item : types) {
+        if(typeid(num).name() == item) {
+            throw std::bad_cast();
+        }
+    }
+
+    try {
+        return BigNumber(std::to_string(num));
+    } catch(...) {
+
+    }
+
+    return BigNumber();
+}
+
+
+template <typename T> BigNumber operator+(T lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result + rhs;
+}
+
+
+template <typename T> BigNumber operator+(const BigNumber &lhs, const T &rhs) {
+    return rhs + lhs;
+}
 
 
 #endif //LONGARITHMETICS_BIGNUMBER_H
