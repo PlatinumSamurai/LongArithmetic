@@ -18,18 +18,18 @@ BigNumber::BigNumber(const std::string &str) {
 }
 
 
-BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs) {
+BigNumber BigNumber::operator+(const BigNumber &rhs) const {
     BigNumber result;
     BigNumber term;
     bool sign = false;
 
 
-    if(lhs.number.size() >= rhs.number.size()) {
-        result = lhs;
+    if(this->number.size() >= rhs.number.size()) {
+        result = *this;
         term = rhs;
     } else {
         result = rhs;
-        term = lhs;
+        term = *this;
     }
 
 
@@ -68,19 +68,19 @@ BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
+BigNumber BigNumber::operator-(const BigNumber &rhs) {
     BigNumber result;
     BigNumber subtrahend;
     bool sign = false;
     bool permutation = false;
 
 
-    if(lhs.number.size() >= rhs.number.size()) {
-        result = lhs;
+    if(this->number.size() >= rhs.number.size()) {
+        result = *this;
         subtrahend = rhs;
     } else {
         result = rhs;
-        subtrahend = lhs;
+        subtrahend = *this;
         permutation = true;
     }
 
@@ -126,7 +126,7 @@ BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs) {
+BigNumber BigNumber::operator*(const BigNumber &rhs) {
     BigNumber result = BigNumber("0");
     BigNumber factor1;
     BigNumber factor2;
@@ -134,12 +134,12 @@ BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs) {
     bool sign = false;
 
 
-    if(lhs.number.size() >= rhs.number.size()) {
-        factor1 = lhs;
+    if(this->number.size() >= rhs.number.size()) {
+        factor1 = *this;
         factor2 = rhs;
     } else {
         factor1 = rhs;
-        factor2 = lhs;
+        factor2 = *this;
     }
 
     if((factor1 < BigNumber("0") and factor2 >= BigNumber("0")) or
@@ -182,8 +182,8 @@ BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
-    BigNumber dividend = lhs;
+BigNumber BigNumber::operator/(const BigNumber &rhs) const {
+    BigNumber dividend = *this;
     BigNumber divisor = rhs;
     BigNumber result;
     BigNumber temp;
@@ -195,13 +195,13 @@ BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
         throw std::domain_error("Division by zero");
     }
 
-    if(lhs >= BigNumber("0") and rhs < BigNumber("0")) {
+    if(*this >= BigNumber("0") and rhs < BigNumber("0")) {
         divisor = divisor.abs();
         sign = true;
-    } else if(lhs < BigNumber("0") and rhs >= BigNumber("0")) {
+    } else if(*this < BigNumber("0") and rhs >= BigNumber("0")) {
         dividend = dividend.abs();
         sign = true;
-    }  else if(lhs < BigNumber("0") and rhs < BigNumber("0")) {
+    }  else if(*this < BigNumber("0") and rhs < BigNumber("0")) {
         dividend = dividend.abs();
         divisor = divisor.abs();
     }
@@ -251,8 +251,8 @@ BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
-    BigNumber dividend = lhs;
+BigNumber BigNumber::operator%(const BigNumber &rhs) const {
+    BigNumber dividend = *this;
     BigNumber divisor = rhs;
     BigNumber temp;
     BigNumber remainder;
@@ -263,12 +263,12 @@ BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
         throw std::domain_error("Division by zero");
     }
 
-    if(lhs >= BigNumber("0") and rhs < BigNumber("0")) {
+    if(*this >= BigNumber("0") and rhs < BigNumber("0")) {
         divisor = divisor.abs();
-    } else if(lhs < BigNumber("0") and rhs >= BigNumber("0")) {
+    } else if(*this < BigNumber("0") and rhs >= BigNumber("0")) {
         dividend = dividend.abs();
         sign = true;
-    }  else if(lhs < BigNumber("0") and rhs < BigNumber("0")) {
+    }  else if(*this < BigNumber("0") and rhs < BigNumber("0")) {
         dividend = dividend.abs();
         divisor = divisor.abs();
         sign = true;
@@ -315,19 +315,19 @@ BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-bool operator>(const BigNumber &lhs, const BigNumber &rhs) {
-    if(*lhs.number.rbegin() >= 0 and *rhs.number.rbegin() < 0) {
+bool BigNumber::operator>(const BigNumber &rhs) const {
+    if(*this->number.rbegin() >= 0 and *rhs.number.rbegin() < 0) {
         return true;
-    } else if(*lhs.number.rbegin() < 0 and *rhs.number.rbegin() >= 0) {
+    } else if(*this->number.rbegin() < 0 and *rhs.number.rbegin() >= 0) {
         return false;
-    } else if(*lhs.number.rbegin() < 0 and *rhs.number.rbegin() < 0) {
-        return (lhs.abs() < rhs.abs());
+    } else if(*this->number.rbegin() < 0 and *rhs.number.rbegin() < 0) {
+        return (this->abs() < rhs.abs());
     }
-    if(lhs.number.size() >  rhs.number.size()) {
+    if(this->number.size() >  rhs.number.size()) {
         return true;
-    } else if(lhs.number.size() ==  rhs.number.size()) {
-        for(auto it1 = lhs.number.rbegin(), it2 = rhs.number.rbegin();
-                    it1 != lhs.number.rend() ; ++it1, ++it2) {
+    } else if(this->number.size() ==  rhs.number.size()) {
+        for(auto it1 = this->number.crbegin(), it2 = rhs.number.rbegin();
+                    it1 != this->number.rend() ; ++it1, ++it2) {
             if(*it1 > *it2) {
                 return true;
             } else if(*it1 < *it2) {
@@ -340,14 +340,14 @@ bool operator>(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-bool operator<(const BigNumber &lhs, const BigNumber &rhs) {
-    return !(lhs > rhs) and (lhs != rhs);
+bool BigNumber::operator<(const BigNumber &rhs) const {
+    return !(*this > rhs) and (*this != rhs);
 }
 
 
-bool operator==(const BigNumber &lhs, const BigNumber &rhs) {
-    if(lhs.number.size() ==  rhs.number.size()) {
-        for(auto it1 = lhs.number.rbegin(), it2 = rhs.number.rbegin(); it1 != lhs.number.rend(); ++it1, ++it2) {
+bool BigNumber::operator==(const BigNumber &rhs) const {
+    if(this->number.size() ==  rhs.number.size()) {
+        for(auto it1 = this->number.crbegin(), it2 = rhs.number.rbegin(); it1 != this->number.crend(); ++it1, ++it2) {
             if(*it1 > *it2 or *it1 < *it2) {
                 return false;
             }
@@ -360,18 +360,18 @@ bool operator==(const BigNumber &lhs, const BigNumber &rhs) {
 }
 
 
-bool operator>=(const BigNumber &lhs, const BigNumber &rhs) {
-    return (lhs > rhs) or (lhs == rhs);
+bool BigNumber::operator>=(const BigNumber &rhs) const {
+    return (*this > rhs) or (*this == rhs);
 }
 
 
-bool operator<=(const BigNumber &lhs, const BigNumber &rhs) {
-    return (lhs < rhs) or (lhs == rhs);
+bool BigNumber::operator<=(const BigNumber &rhs) const {
+    return (*this < rhs) or (*this == rhs);
 }
 
 
-bool operator!=(const BigNumber &lhs, const BigNumber &rhs) {
-    return !(lhs == rhs);
+bool BigNumber::operator!=(const BigNumber &rhs) const {
+    return !(*this == rhs);
 }
 
 
@@ -403,4 +403,37 @@ int BigNumber::reduction() {
     }
 
     return 0;
+}
+
+BigNumber BigNumber::operator+=(const BigNumber &rhs) {
+    *this = *this + rhs;
+
+    return *this;
+}
+
+BigNumber BigNumber::operator-=(const BigNumber &rhs) {
+    *this = *this - rhs;
+
+    return *this;
+}
+
+
+BigNumber BigNumber::operator*=(const BigNumber &rhs) {
+    *this = *this * rhs;
+
+    return *this;
+}
+
+
+BigNumber BigNumber::operator/=(const BigNumber &rhs) {
+    *this = *this / rhs;
+
+    return *this;
+}
+
+
+BigNumber BigNumber::operator%=(const BigNumber &rhs) {
+    *this = *this % rhs;
+
+    return *this;
 }

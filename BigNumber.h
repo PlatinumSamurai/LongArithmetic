@@ -17,17 +17,22 @@ private:
 
 public:
     explicit BigNumber(const std::string &str = "0");
-    friend BigNumber operator+(const BigNumber &lhs, const BigNumber &rhs);
-    friend BigNumber operator-(const BigNumber &lhs, const BigNumber &rhs);
-    friend BigNumber operator*(const BigNumber &lhs, const BigNumber &rhs);
-    friend BigNumber operator/(const BigNumber &lhs, const BigNumber &rhs);
-    friend BigNumber operator%(const BigNumber &lhs, const BigNumber &rhs);
-    friend bool operator>(const BigNumber &lhs, const BigNumber &rhs);
-    friend bool operator<(const BigNumber &lhs, const BigNumber &rhs);
-    friend bool operator==(const BigNumber &lhs, const BigNumber &rhs);
-    friend bool operator>=(const BigNumber &lhs, const BigNumber &rhs);
-    friend bool operator<=(const BigNumber &lhs, const BigNumber &rhs);
-    friend bool operator!=(const BigNumber &lhs, const BigNumber &rhs);
+    BigNumber operator+(const BigNumber &rhs) const;
+    BigNumber operator+=(const BigNumber &rhs);
+    BigNumber operator-(const BigNumber &rhs);
+    BigNumber operator-=(const BigNumber &rhs);
+    BigNumber operator*(const BigNumber &rhs);
+    BigNumber operator*=(const BigNumber &rhs);
+    BigNumber operator/(const BigNumber &rhs) const;
+    BigNumber operator/=(const BigNumber &rhs);
+    BigNumber operator%(const BigNumber &rhs) const;
+    BigNumber operator%=(const BigNumber &rhs);
+    bool operator>(const BigNumber &rhs) const;
+    bool operator<(const BigNumber &rhs) const;
+    bool operator==(const BigNumber &rhs) const;
+    bool operator>=(const BigNumber &rhs) const;
+    bool operator<=(const BigNumber &rhs) const;
+    bool operator!=(const BigNumber &rhs) const;
     friend std::ostream &operator<<(std::ostream &out, const BigNumber &number);
 
     [[nodiscard]] BigNumber abs() const;
@@ -62,19 +67,21 @@ template <typename T> BigNumber operator+(T lhs, const BigNumber &rhs) {
 
 
 template <typename T> BigNumber operator+(const BigNumber &lhs, const T &rhs) {
-    return rhs + lhs;
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs.operator+(result);
 }
 
 
 template <typename T> BigNumber operator-(T lhs, const BigNumber &rhs) {
     BigNumber result = to_BigNumber(lhs);
 
-    return result + rhs;
+    return result - rhs;
 }
 
 
 template <typename T> BigNumber operator-(const BigNumber &lhs, const T &rhs) {
-    return (rhs + lhs) * (-1);
+    return (rhs - lhs) * (-1);
 }
 
 
@@ -116,6 +123,7 @@ template <typename T> BigNumber operator%(const BigNumber &lhs, const T &rhs) {
 
     return lhs % result;
 }
+
 
 template <typename T>
 bool operator>(const T &lhs, const BigNumber &rhs) {
@@ -210,6 +218,86 @@ bool operator!=(const BigNumber &lhs, const T &rhs) {
     BigNumber result = to_BigNumber(rhs);
 
     return lhs != result;
+}
+
+
+template <typename T>
+BigNumber operator+=(BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs += result;
+}
+
+
+template <typename T>
+BigNumber operator+=(T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result += rhs;
+}
+
+
+template <typename T>
+BigNumber operator-=(BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs -= result;
+}
+
+
+template <typename T>
+BigNumber operator-=(T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result -= rhs;
+}
+
+
+template <typename T>
+BigNumber operator*=(BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs *= result;
+}
+
+
+template <typename T>
+BigNumber operator*=(T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result *= rhs;
+}
+
+
+template <typename T>
+BigNumber operator/=(BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs /= result;
+}
+
+
+template <typename T>
+BigNumber operator/=(T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result /= rhs;
+}
+
+
+template <typename T>
+BigNumber operator%=(BigNumber &lhs, const T &rhs) {
+    BigNumber result = to_BigNumber(rhs);
+
+    return lhs %= result;
+}
+
+
+template <typename T>
+BigNumber operator%=(T &lhs, const BigNumber &rhs) {
+    BigNumber result = to_BigNumber(lhs);
+
+    return result %= rhs;
 }
 
 
