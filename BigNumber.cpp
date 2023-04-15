@@ -437,3 +437,32 @@ BigNumber BigNumber::operator%=(const BigNumber &rhs) {
 
     return *this;
 }
+
+BigNumber BigNumber::operator++() {
+    *this = *this + 1;
+
+    return *this;
+}
+
+
+const BigNumber BigNumber::operator++(int notused) {
+    const BigNumber temp = *this;
+
+    *this += 1;
+
+    return temp;
+}
+
+BigNumber BigNumber::operator--() {
+    *this = *this - 1;
+
+    return *this;
+}
+
+const BigNumber BigNumber::operator--(int notused) {
+    const BigNumber temp = *this;
+
+    *this -= 1;
+
+    return temp;
+}

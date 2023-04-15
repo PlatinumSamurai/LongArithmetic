@@ -27,6 +27,10 @@ public:
     BigNumber operator/=(const BigNumber &rhs);
     BigNumber operator%(const BigNumber &rhs) const;
     BigNumber operator%=(const BigNumber &rhs);
+    BigNumber operator++();
+    BigNumber operator--();
+    const BigNumber operator++(int notused);
+    const BigNumber operator--(int notused);
     bool operator>(const BigNumber &rhs) const;
     bool operator<(const BigNumber &rhs) const;
     bool operator==(const BigNumber &rhs) const;
