@@ -18,6 +18,18 @@ BigNumber::BigNumber(const std::string &str) {
 }
 
 
+BigNumber::BigNumber(const long long int &num) {
+    BigNumber temp = to_BigNumber(num);
+
+    *this = temp;
+}
+
+
+BigNumber::BigNumber(const std::vector<int8_t> &vec) {
+    number = vec;
+}
+
+
 BigNumber BigNumber::operator+(const BigNumber &rhs) const {
     BigNumber result;
     BigNumber term;
@@ -206,7 +218,7 @@ BigNumber BigNumber::operator/(const BigNumber &rhs) const {
         divisor = divisor.abs();
     }
 
-    while(dividend > divisor) {
+    while(dividend >= divisor) {
         if(remainder == BigNumber("0")) {
             step = 1;
         } else {
@@ -215,12 +227,17 @@ BigNumber BigNumber::operator/(const BigNumber &rhs) const {
         for(auto i = step; i <= dividend.number.size(); ++i) {
             temp.number.clear();
             std::copy(dividend.number.end() - i, dividend.number.end(), std::back_inserter(temp.number));
+            temp.reduction();
             if(temp >= divisor) {
                 break;
             } else {
                 result.number.insert(result.number.begin(), 0);
             }
         }
+        if(temp == 0) {
+            break;
+        }
+
         for(int i = 1; i <= 9; ++i) {
             BigNumber tempTemp = divisor * BigNumber(std::to_string(i));
             if(tempTemp > temp) {
@@ -274,7 +291,7 @@ BigNumber BigNumber::operator%(const BigNumber &rhs) const {
         sign = true;
     }
 
-    while(dividend > divisor) {
+    while(dividend >= divisor) {
         if(remainder == BigNumber("0")) {
             step = 1;
         } else {
@@ -283,10 +300,15 @@ BigNumber BigNumber::operator%(const BigNumber &rhs) const {
         for(auto i = step; i <= dividend.number.size(); ++i) {
             temp.number.clear();
             std::copy(dividend.number.end() - i, dividend.number.end(), std::back_inserter(temp.number));
+            temp.reduction();
             if(temp >= divisor) {
                 break;
             }
         }
+        if(temp == 0) {
+            break;
+        }
+
         for(int i = 1; i <= 9; ++i) {
             BigNumber tempTemp = divisor * BigNumber(std::to_string(i));
             if(tempTemp > temp) {
@@ -323,10 +345,10 @@ bool BigNumber::operator>(const BigNumber &rhs) const {
     } else if(*this->number.rbegin() < 0 and *rhs.number.rbegin() < 0) {
         return (this->abs() < rhs.abs());
     }
-    if(this->number.size() >  rhs.number.size()) {
+    if(this->number.size() > rhs.number.size()) {
         return true;
     } else if(this->number.size() ==  rhs.number.size()) {
-        for(auto it1 = this->number.crbegin(), it2 = rhs.number.rbegin();
+        for(auto it1 = this->number.rbegin(), it2 = rhs.number.rbegin();
                     it1 != this->number.rend() ; ++it1, ++it2) {
             if(*it1 > *it2) {
                 return true;
@@ -454,7 +476,7 @@ const BigNumber BigNumber::operator++(int notused) {
 }
 
 BigNumber BigNumber::operator--() {
-    *this = *this - 1;
+    *this = *this - BigNumber(1);
 
     return *this;
 }

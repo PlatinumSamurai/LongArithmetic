@@ -13,10 +13,12 @@ class BigNumber {
 private:
     std::vector<int8_t> number;
 
+    explicit BigNumber(const std::vector<int8_t> &vec);
     int reduction();
 
 public:
     explicit BigNumber(const std::string &str = "0");
+    explicit BigNumber(const long long int &num);
     BigNumber operator+(const BigNumber &rhs) const;
     BigNumber operator+=(const BigNumber &rhs);
     BigNumber operator-(const BigNumber &rhs);
