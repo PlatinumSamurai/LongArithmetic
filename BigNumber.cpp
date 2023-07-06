@@ -238,7 +238,7 @@ BigNumber BigNumber::operator/(const BigNumber &rhs) const {
             break;
         }
 
-        for(int i = 1; i <= 9; ++i) {
+        for(int i = 1; i <= 10; ++i) {
             BigNumber tempTemp = divisor * BigNumber(std::to_string(i));
             if(tempTemp > temp) {
                 result.number.insert(result.number.begin(), i - 1);
@@ -309,7 +309,7 @@ BigNumber BigNumber::operator%(const BigNumber &rhs) const {
             break;
         }
 
-        for(int i = 1; i <= 9; ++i) {
+        for(int i = 1; i <= 10; ++i) {
             BigNumber tempTemp = divisor * BigNumber(std::to_string(i));
             if(tempTemp > temp) {
                 // TODO any possible optimization?

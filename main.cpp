@@ -5,9 +5,12 @@
 
 
 int main() {
-    BigNumber num1("25");
-    BigNumber num2("200");
-    std::cout << (64000001 % num1);
+//    BigNumber num1("326392856128926403763479623892357349672378642398735476");
+//    BigNumber num2("234961248652398");
+
+//    BigNumber num1("32639285120");
+//    BigNumber num2("23496124");
+//    std::cout << (num1 % num2);
 
 //    std::cout << num2 * 2 << std::endl;
 //    std::cout << modularExponentiation(BigNumber(25), BigNumber(200), BigNumber(2233));
@@ -146,6 +149,7 @@ int main() {
 //    assert(BigNumber("-98356742983549357206") / BigNumber("46734137658") == BigNumber("-2104601644"));
 //    assert(BigNumber("98356742983549357206") / BigNumber("-46734137658") == BigNumber("-2104601644"));
 //    assert(BigNumber("-98356742983549357206") / BigNumber("-46734137658") == BigNumber("2104601644"));
+//    assert(BigNumber("32639285120") / BigNumber("23496124") == BigNumber("1389"));
 //
 //    // Operator % tests
 //    assert(BigNumber("4") % BigNumber("1") == BigNumber("0"));
@@ -167,8 +171,10 @@ int main() {
 //    assert(BigNumber("-98356742983549357206") % BigNumber("46734137658") == BigNumber("-37600247454"));
 //    assert(BigNumber("98356742983549357206") % BigNumber("-46734137658") == BigNumber("37600247454"));
 //    assert(BigNumber("-98356742983549357206") % BigNumber("-46734137658") == BigNumber("-37600247454"));
-
-
+//    assert(BigNumber("32639285120") % BigNumber("23496124") == BigNumber("3168884"));
+//
+//
+//
 //    std::cerr << "All tests are passed!" << std::endl;
 
     return 0;
